@@ -5,6 +5,10 @@ import { emailChanged, passwordChanged, loginUser } from "../actions";
 import { View, Text } from "react-native";
 
 class LoginForm extends Component {
+  static navigationOptions = {
+    title: "Please Login"
+  };
+
   onEmailChange = text => {
     this.props.emailChanged(text);
   };
