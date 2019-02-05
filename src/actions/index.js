@@ -21,11 +21,13 @@ export const passwordChanged = text => {
   };
 };
 
-const loginUserSuccess = (dispatch, user) => {
+const loginUserSuccess = (dispatch, user, history) => {
+  console.log(history);
   dispatch({
     type: LOGIN_USER_SUCESS,
     payload: user
   });
+  history.push("employeeList");
 };
 
 const loginUserFailed = dispatch => {
@@ -34,19 +36,19 @@ const loginUserFailed = dispatch => {
   });
 };
 
-export const loginUser = ({ email, password }) => {
+export const loginUser = ({ email, password }, history) => {
   return dispatch => {
     dispatch({ type: LOGIN_USER });
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
+      .then(user => loginUserSuccess(dispatch, user, history))
       // this catch will be used to try to create an account if the auth failed
       .catch(() => {
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
-          .then(user => loginUserSuccess(dispatch, user))
+          .then(user => loginUserSuccess(dispatch, user, history))
           .catch(() => loginUserFailed(dispatch));
       });
   };

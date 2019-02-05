@@ -5,7 +5,9 @@ import firebase from "@firebase/app";
 import "@firebase/auth";
 import ReduxThunk from "redux-thunk";
 import reducers from "./src/reducers";
-import AppNavigator from "./src/AppNavigator";
+import { NativeRouter, Route, Link } from "react-router-native";
+import LoginForm from "./src/components/LoginForm";
+import EmployeeList from "./src/components/EmployeeList";
 
 export default class App extends Component {
   componentDidMount() {
@@ -22,9 +24,13 @@ export default class App extends Component {
   render() {
     const store = createStore(reducers, applyMiddleware(ReduxThunk));
     return (
-      <Provider store={store}>
-        <AppNavigator />
-      </Provider>
+      <NativeRouter>
+        <Provider store={store}>
+          <Route exact path="/" component={LoginForm} />
+          <Route path="/login" component={LoginForm} />
+          <Route path="/employeeList" component={EmployeeList} />
+        </Provider>
+      </NativeRouter>
     );
   }
 }
