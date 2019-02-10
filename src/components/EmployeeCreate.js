@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, CardSection, Input, Button } from "./common";
 import { connect } from "react-redux";
-import { employeeUpdate } from "../actions";
+import { employeeUpdate, employeeCreate } from "../actions";
 import { Picker, Text, View } from "react-native";
 
 const daysOfTheWeek = [
@@ -15,6 +15,10 @@ const daysOfTheWeek = [
 ];
 
 class EmployeeCreate extends Component {
+  onButtonPress = () => {
+    const { name, phone, shift, employeeCreate } = this.props;
+    employeeCreate({ name, phone, shift });
+  };
   render() {
     const { name, phone, shift, employeeUpdate } = this.props;
     const { pickerTextStyle } = styles;
@@ -63,7 +67,7 @@ class EmployeeCreate extends Component {
           </View>
         </CardSection>
         <CardSection>
-          <Button>Create</Button>
+          <Button onPress={this.onButtonPress}>Create</Button>
         </CardSection>
       </Card>
     );
@@ -81,5 +85,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { employeeUpdate }
+  { employeeUpdate, employeeCreate }
 )(EmployeeCreate);
