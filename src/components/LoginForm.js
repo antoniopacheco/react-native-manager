@@ -3,7 +3,6 @@ import { Card, CardSection, Button, Input, Spinner } from "./common";
 import { connect } from "react-redux";
 import { emailChanged, passwordChanged, loginUser } from "../actions";
 import { View, Text } from "react-native";
-import { withRouter } from "react-router-native";
 
 class LoginForm extends Component {
   static navigationOptions = {
@@ -19,8 +18,8 @@ class LoginForm extends Component {
   };
 
   onButtonPress = () => {
-    const { email, password, loginUser, history } = this.props;
-    loginUser({ email, password }, history);
+    const { email, password, loginUser } = this.props;
+    loginUser({ email, password });
   };
 
   renderButton = () => {
@@ -86,13 +85,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      emailChanged,
-      passwordChanged,
-      loginUser
-    }
-  )(LoginForm)
-);
+export default connect(
+  mapStateToProps,
+  {
+    emailChanged,
+    passwordChanged,
+    loginUser
+  }
+)(LoginForm);

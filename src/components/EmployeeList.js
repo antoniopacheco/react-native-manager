@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-native";
 
 class EmployeeList extends Component {
   render() {
@@ -16,9 +15,7 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {}
-  )(EmployeeList)
-);
+export default connect(
+  mapStateToProps,
+  {}
+)(EmployeeList);
